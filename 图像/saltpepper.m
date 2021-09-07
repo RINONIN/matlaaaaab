@@ -1,0 +1,35 @@
+P=imread('1.jpg');
+I=rgb2gray(P);
+subplot(221);imshow(I);title('原始图像');
+I1=imnoise(I,'salt & pepper'); 
+subplot(222);imshow(I1);title('加入椒盐噪声后的图像'); 
+h1=ones(3,3)/9;
+h2=ones(5,5)/25;
+K1=imfilter(I1,h1);
+K2=imfilter(I1,h2);
+%subplot(334),imshow(I),title('原始图像');
+%subplot(337),imshow(I),title('原始图像');
+subplot(223),imshow(K1,[]),title('加入椒盐噪声后3*3平均滤波');
+subplot(224),imshow(K2,[]),title('加入椒盐噪声后5*5平均滤波');
+ 
+I2=imnoise(I,'gaussian',0,0.005); 
+figure;
+subplot(221);imshow(I);title('原始图像');
+subplot(222);imshow(I2);title('加入高斯噪声后的图像');
+h1=ones(3,3)/9;
+h2=ones(5,5)/25;
+K1=imfilter(I2,h1);
+K2=imfilter(I2,h2);
+subplot(223),imshow(K1,[]),title('加入高斯噪声后3*3平均滤波');
+subplot(224),imshow(K2,[]),title('加入高斯噪声后5*5平均滤波');
+ 
+figure;
+subplot(321);imshow(I1);title('加入椒盐噪声后的图像'); 
+subplot(322);imshow(I2);title('加入高斯噪声后的图像');
+J1=medfilt2(I1);
+J3=medfilt2(I2);
+J2=medfilt2(I1,[5 5]);
+J4=medfilt2(I2,[5 5]);
+subplot(323),imshow(J1),title('加入椒盐噪声后3*3窗口中值滤波');
+subplot(324),imshow(J3),title('加入椒盐噪声后5*5窗口中值滤波');
+subplot(325),imshow(J2),title('加入高斯噪声后3*3窗口中值滤波');
